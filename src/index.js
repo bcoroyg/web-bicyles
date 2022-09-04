@@ -2,6 +2,8 @@ import logger from 'morgan';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import session from 'express-session';
+import flash from 'connect-flash';
 import config from './config/index.js';
 import routerAPP from './routes/index.js';
 import notFoundHandler from './utils/middlewares/notFoundHandler.js';
@@ -25,11 +27,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
+//session
+app.use(
+  session({
+    secret: config.secretSession,
+    key: config.keySession,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+//flash messages
+app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.year = new Date().getFullYear();
   //path
   res.locals.path = req.path;
+  //mesages
+  res.locals.messages = req.flash();
   next();
 });
 

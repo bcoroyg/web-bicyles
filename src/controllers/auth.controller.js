@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { createUserValidator } from '../utils/validators/auth.validator.js';
 
 const router = Router();
 
@@ -19,6 +20,15 @@ router.get('/create-account', async (req, res, next) => {
       title: 'Creación de cuenta',
       layout: 'auth',
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/create-account', createUserValidator, async (req, res, next) => {
+  const { body: user } = req;
+  try {
+    console.log(user);
   } catch (error) {
     next(error);
   }

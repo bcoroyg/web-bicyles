@@ -1,20 +1,34 @@
 extends ../layouts/auth
 block content
+  - const errors = messages.errors || null
+  - const values = messages.values || null
   form.form-signin.text-center.shadow-lg(action='/create-account', method='post')
     img.mb-4(src='/images/cycling.png', alt='')
     h3.h3.mb-3.fw-normal #{title}
     .form-floating
-      input#name.form-control(type='text', name='name', placeholder='Ingresar nombre')
+      input#name.form-control(type='text', name='name', value=((values) ? `${values[0].name}` : ''), placeholder='Ingresar nombre')
       label(for='name') Nombre
+      if errors
+        p.form-text.my-0.text-danger.text-center
+          = errors[0].name
     .form-floating
-      input#email.form-control(type='text', name='email', placeholder='Ingresar correo')
+      input#email.form-control(type='text', name='email', value=((values) ? `${values[0].email}` : ''), placeholder='Ingresar correo')
       label(for='email') Correo
+      if errors
+        p.form-text.my-0.text-danger.text-center
+          = errors[0].email
     .form-floating
-      input#password.form-control(type='password', name='password', placeholder='Ingresar contraseña')
+      input#password.form-control(type='password', name='password', value=((values) ? `${values[0].password}` : ''), placeholder='Ingresar contraseña')
       label(for='password') Contraseña
+      if errors
+        p.form-text.my-0.text-danger.text-center
+          = errors[0].password
     .form-floating.mb-3
       input#confirmPassword.form-control(type='password', name='confirmPassword', placeholder='Ingresar contraseña nuevamente')
       label(for='confirmPassword') Confirmar contraseña
+      if errors
+        p.form-text.my-0.text-danger.text-center
+          = errors[0].confirmPassword
     button.btn.btn-primary.btn-lg.w-100(type='submit') Crear Cuenta
     .pt-2
       a.float-start.text-decoration-none(href='/') Volver a inicio
