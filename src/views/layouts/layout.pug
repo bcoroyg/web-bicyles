@@ -9,7 +9,7 @@ html(lang='es')
     link(rel="stylesheet", href="/css/style.css")
     title #{title}
   body
-    nav#mainNav.navbar.navbar-expand-lg.navbar-dark.fixed-top
+    nav.navbar.navbar-expand-lg.navbar-dark.fixed-top(id=((path === '/') ? 'mainNav':''), class=((path !== '/') ? 'bg-dark':''))
       .container
         a.navbar-brand(href='/')
           img.img-fluid(src='/images/cycling.png' alt='Icono bicicleta' width='30px')
