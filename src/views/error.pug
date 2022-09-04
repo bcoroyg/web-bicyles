@@ -1,0 +1,8 @@
+extends ./layouts/layout
+block content
+  .mt-5
+    h3.text-center.display-6 #{error}
+    .text-center
+      a.btn.btn-info(href="/") Ir a página principal
+    if stack
+      pre #{stack}
