@@ -1,7 +1,9 @@
 import { Router } from 'express';
+import AuthService from '../services/auth.service.js';
 import { createUserValidator } from '../utils/validators/auth.validator.js';
 
 const router = Router();
+const authService = AuthService.getInstance();
 
 router.get('/login', async (req, res, next) => {
   try {
@@ -28,7 +30,9 @@ router.get('/create-account', async (req, res, next) => {
 router.post('/create-account', createUserValidator, async (req, res, next) => {
   const { body: user } = req;
   try {
-    console.log(user);
+    await authService.createUser({ user });
+    req.flash('success', 'Se envio correo de activación de cuenta.');
+    res.redirect('/login');
   } catch (error) {
     next(error);
   }
