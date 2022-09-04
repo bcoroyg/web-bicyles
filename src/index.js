@@ -8,6 +8,7 @@ import config from './config/index.js';
 import routerAPP from './routes/index.js';
 import notFoundHandler from './utils/middlewares/notFoundHandler.js';
 import { errorHandler, logErrors } from './utils/middlewares/errorHandler.js';
+import connectionDB from './lib/mongoose.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -59,6 +60,7 @@ app.use(errorHandler);
 
 
 //Server
-app.listen(app.get('port'), () => {
+app.listen(app.get('port'), async () => {
   console.log(`Server started on port`);
+  await connectionDB();
 });
