@@ -1,5 +1,6 @@
 import { check, body } from 'express-validator';
 import validatorHandler from '../middlewares/validatorHandler.js';
+import { emailExists } from '../validatorsCustomHandler.js';
 
 const createUserValidator = [
   //Sanitizar
@@ -10,6 +11,7 @@ const createUserValidator = [
   //validar
   check('name', 'El nombre es obligatorio.').notEmpty(),
   check('email', 'El correo es obligatorio.').notEmpty(),
+  check('email').custom(emailExists),
   check('password', 'La contraseña es obligatoria.').notEmpty(),
   check('confirmPassword', 'Confirmar contraseña es obligatoria.').notEmpty(),
   check('confirmPassword', 'La contraseña no coincide, intente nuevamente.')
