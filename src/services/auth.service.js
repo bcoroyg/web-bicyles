@@ -65,6 +65,17 @@ class AuthService {
     const user = await userDB.save();
     return user._id;
   }
+
+  async resetPassword({ token, password }) {
+    const userDB = await models.User.findOne({ token });
+    userDB.password = password;
+    //limpiando token y expiración
+    userDB.token = undefined;
+    userDB.expireToken = undefined;
+    //guardando la nueva contraseña
+    const user = await userDB.save();
+    return user._id;
+  }
 }
 
 export default AuthService;

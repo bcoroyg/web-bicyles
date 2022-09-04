@@ -1,6 +1,12 @@
 import { Router } from 'express';
 import AuthService from '../services/auth.service.js';
-import { confirmAccountAuthValidator, createUserValidator, forgotPasswordAuthValidator } from '../utils/validators/auth.validator.js';
+import {
+  confirmAccountAuthValidator,
+  createUserValidator,
+  forgotPasswordAuthValidator,
+  getResetPasswordAuthValidator,
+  resetPasswordAuthValidator,
+} from '../utils/validators/auth.validator.js';
 
 const router = Router();
 const authService = AuthService.getInstance();
@@ -73,6 +79,40 @@ router.post(
       const { email } = req.body;
       await authService.forgotPassword({ email, host: req.headers.origin });
       req.flash('success', 'Se envio correo de recuperación de contraseña.');
+      res.redirect('/login');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.get(
+  '/reset-password/:token',
+  getResetPasswordAuthValidator,
+  async (req, res, next) => {
+    const { token } = req.params;
+    try {
+      res.render('auth/reset-password', {
+        title: 'Nueva contraseña',
+        layout: 'auth',
+        token,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post(
+  '/reset-password/:token',
+  resetPasswordAuthValidator,
+  async (req, res, next) => {
+    const { token } = req.params;
+    const { password } = req.body;
+    try {
+      await authService.resetPassword({ token, password });
+      //Redirigir
+      req.flash('success', 'Su contraseña fue restablecida exitosamente.');
       res.redirect('/login');
     } catch (error) {
       next(error);

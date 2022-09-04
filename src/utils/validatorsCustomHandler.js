@@ -1,4 +1,4 @@
-import UserService from "../services/user.service.js";
+import UserService from '../services/user.service.js';
 
 const userService = UserService.getInstance();
 
@@ -42,9 +42,27 @@ const userEmailExists = async (email = '') => {
   }
 };
 
+const tokenExpire = async (token = '') => {
+  // Verificar si el token expiro
+  try {
+    const user = await userService.getUser({
+      where: {
+        token,
+        expireToken: {
+          $gt: Date.now(),
+        },
+      },
+    });
+    if (!user) {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error) {
+      throw new Error(
+        `¡No encontramos un usuario asociado a este token. Quizá haya expirado y debas solicitarlo nuevamente!`
+      );
+    }
+  }
+};
 
-export {
-  emailExists,
-  tokenExists,
-  userEmailExists
-}
+export { emailExists, tokenExists, userEmailExists, tokenExpire };

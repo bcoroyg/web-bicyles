@@ -11,6 +11,8 @@ html(lang="es")
       link(rel="stylesheet", href="/css/login.css")
     if locals.path === '/create-account'
       link(rel="stylesheet", href="/css/create-account.css")
+    if locals.path.split('/')[1] === 'reset-password'
+      link(rel="stylesheet", href="/css/reset-password.css")
     title #{title}
   body
     if messages.success
