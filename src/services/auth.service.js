@@ -21,7 +21,6 @@ class AuthService {
     };
     //Generar token de Email
     const tokenEmail = tokenEmailHandler({});
-    data.token = tokenEmail.token;
     //Creación de la url
     const url = `${host}/confirm-account/${tokenEmail.token}`;
     //Envio de correo
@@ -32,6 +31,7 @@ class AuthService {
       file: 'confirm-account',
       url,
     });
+    data.token = tokenEmail.token;
     const createdUser = await models.User.create(data);
     createdUser.password = undefined;
     return createdUser;
@@ -43,6 +43,26 @@ class AuthService {
     user.verified = true;
     user.token = undefined;
     await user.save();
+    return user._id;
+  }
+
+  async forgotPassword({ email, host }) {
+    const userDB = await models.User.findOne({ email });
+    //Generar token de Email
+    const tokenEmail = tokenEmailHandler({ expireToken: 3600000 });
+    //Creación de la url
+    const url = `${host}/reset-password/${tokenEmail.token}`;
+    //Envio de correo
+    sendMail({
+      from: config.mailUser,
+      to: email,
+      subject: 'Recuperación de contraseña',
+      file: 'reset-password',
+      url,
+    });
+    userDB.token = tokenEmail.token;
+    userDB.expireToken = tokenEmail.expireToken;
+    const user = await userDB.save();
     return user._id;
   }
 }

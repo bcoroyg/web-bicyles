@@ -1,6 +1,6 @@
 import { check, body } from 'express-validator';
 import validatorHandler from '../middlewares/validatorHandler.js';
-import { emailExists, tokenExists } from '../validatorsCustomHandler.js';
+import { emailExists, tokenExists, userEmailExists } from '../validatorsCustomHandler.js';
 
 const createUserValidator = [
   //Sanitizar
@@ -25,8 +25,18 @@ const confirmAccountAuthValidator = [
   validatorHandler,
 ];
 
+const forgotPasswordAuthValidator = [
+  //Sanitizar
+  body('email').escape(),
+  //Validar
+  check('email').custom(userEmailExists),
+  check('email', 'El correo es obligatorio.').notEmpty(),
+  validatorHandler,
+];
+
 
 export {
   createUserValidator,
-  confirmAccountAuthValidator
+  confirmAccountAuthValidator,
+  forgotPasswordAuthValidator,
 }

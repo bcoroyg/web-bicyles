@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import AuthService from '../services/auth.service.js';
-import { confirmAccountAuthValidator, createUserValidator } from '../utils/validators/auth.validator.js';
+import { confirmAccountAuthValidator, createUserValidator, forgotPasswordAuthValidator } from '../utils/validators/auth.validator.js';
 
 const router = Router();
 const authService = AuthService.getInstance();
@@ -64,5 +64,20 @@ router.get('/forgot-password', async (req, res, next) => {
     next(error);
   }
 });
+
+router.post(
+  '/forgot-password',
+  forgotPasswordAuthValidator,
+  async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      await authService.forgotPassword({ email, host: req.headers.origin });
+      req.flash('success', 'Se envio correo de recuperación de contraseña.');
+      res.redirect('/login');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export default router;

@@ -26,7 +26,25 @@ const tokenExists = async (token = '') => {
   }
 };
 
+const userEmailExists = async (email = '') => {
+  // Verificar si el correo existe
+  try {
+    const user = await userService.getUser({
+      where: { email },
+    });
+    if (!user) {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error) {
+      throw new Error(`No existe el correo ingresado, intente nuevamente.`);
+    }
+  }
+};
+
+
 export {
   emailExists,
-  tokenExists
+  tokenExists,
+  userEmailExists
 }
