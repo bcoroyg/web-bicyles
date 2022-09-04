@@ -1,0 +1,4 @@
+.env
+.husky
+.eslintcache
+node_modules/
