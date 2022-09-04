@@ -11,6 +11,9 @@ const app = express();
 
 // Numero de Puerto
 app.set('port', config.port);
+//Motor de plantilla
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 //Middlewares
 app.use(logger('dev'));
