@@ -1,6 +1,6 @@
 import { check, body } from 'express-validator';
 import validatorHandler from '../middlewares/validatorHandler.js';
-import { emailExists } from '../validatorsCustomHandler.js';
+import { emailExists, tokenExists } from '../validatorsCustomHandler.js';
 
 const createUserValidator = [
   //Sanitizar
@@ -20,6 +20,13 @@ const createUserValidator = [
   validatorHandler,
 ];
 
+const confirmAccountAuthValidator = [
+  check('token').custom(tokenExists),
+  validatorHandler,
+];
+
+
 export {
-  createUserValidator
+  createUserValidator,
+  confirmAccountAuthValidator
 }

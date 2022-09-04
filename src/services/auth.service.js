@@ -36,6 +36,15 @@ class AuthService {
     createdUser.password = undefined;
     return createdUser;
   }
+
+  async confirmAccountUser({ token }) {
+    const user = await models.User.findOne({ token });
+    //actualizando usuario a activo
+    user.verified = true;
+    user.token = undefined;
+    await user.save();
+    return user._id;
+  }
 }
 
 export default AuthService;

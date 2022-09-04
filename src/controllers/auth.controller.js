@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import AuthService from '../services/auth.service.js';
-import { createUserValidator } from '../utils/validators/auth.validator.js';
+import { confirmAccountAuthValidator, createUserValidator } from '../utils/validators/auth.validator.js';
 
 const router = Router();
 const authService = AuthService.getInstance();
@@ -37,6 +37,22 @@ router.post('/create-account', createUserValidator, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get(
+  '/confirm-account/:token',
+  confirmAccountAuthValidator,
+  async (req, res, next) => {
+    const { token } = req.params;
+    try {
+      await authService.confirmAccountUser({ token });
+      //Enviando Mensaje y redireccionando a login
+      req.flash('success', 'Su cuenta fue activada exitosamente.');
+      res.redirect('/login');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.get('/forgot-password', async (req, res, next) => {
   try {
