@@ -30,7 +30,7 @@ router.get('/create-account', async (req, res, next) => {
 router.post('/create-account', createUserValidator, async (req, res, next) => {
   const { body: user } = req;
   try {
-    await authService.createUser({ user });
+    await authService.createUser({ user, host: req.headers.origin });
     req.flash('success', 'Se envio correo de activación de cuenta.');
     res.redirect('/login');
   } catch (error) {

@@ -12,6 +12,10 @@ const config = {
   dbHost: process.env.DB_HOST,
   dbName: process.env.DB_NAME,
   dbPort: process.env.DB_PORT,
+  mailUser: process.env.MAIL_USER,
+  mailPassword: process.env.MAIL_PASSWORD,
+  mailHost: process.env.MAIL_HOST,
+  mailPort: process.env.MAIL_PORT,
 };
 
 export default config;
