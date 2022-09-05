@@ -1,5 +1,6 @@
+import shortid from 'shortid';
 import models from '../database/models/index.js';
-import uploadHandler from '../utils/uploadHandler.js';
+import uploadHandler, { deleteFile } from '../utils/uploadHandler.js';
 
 class BicycleService {
   static _bicycleServiceInstance = null;
@@ -37,19 +38,29 @@ class BicycleService {
     const data = {
       ...bicycle,
       image,
+      code: shortid.generate(),
     };
     const createdBicycle = await models.Bicycle.create(data);
     return createdBicycle;
   }
 
-  async updateBicycle({ bicycleId, bicycle }) {
-    const updatedBicycle = await models.Bicycle.findByIdAndUpdate(
-      bicycleId,
-      bicycle,
-      {
-        new: true,
-      }
-    );
+  async updateBicycle({ bicycle, files }) {
+    const { bicycleId, ...data } = bicycle;
+    const bicycleDB = await this.getBicycleById({ bicycleId });
+    if (files && bicycleDB.image) {
+      deleteFile({ nameFile: bicycleDB.image, collection: 'bicycles' });
+      // Capturando envio de imagen
+      const image = await uploadHandler({
+        file: files.file,
+        collection: 'bicycles',
+      });
+      bicycleDB.image = image;
+    }
+    bicycleDB.color = data.color;
+    bicycleDB.model = data.model;
+    bicycleDB.price = data.price;
+
+    const updatedBicycle = await bicycleDB.save();
     return updatedBicycle;
   }
 

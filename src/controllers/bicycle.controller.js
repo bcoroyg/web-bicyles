@@ -1,7 +1,10 @@
 import { Router } from 'express';
 import BicycleService from '../services/bicycle.service.js';
 import authHandler from '../utils/middlewares/authHandler.js';
-import { createBicycleValidator } from '../utils/validators/bicycle.validator.js';
+import {
+  createBicycleValidator,
+  updateBicycleValidator,
+} from '../utils/validators/bicycle.validator.js';
 
 const router = Router();
 const bicycleService = BicycleService.getInstance();
@@ -28,15 +31,49 @@ router.get('/create', authHandler, async (req, res, next) => {
   }
 });
 
-router.post('/create', authHandler, createBicycleValidator, async (req, res, next) => {
-  const { body: bicycle } = req;
+router.post(
+  '/create',
+  authHandler,
+  createBicycleValidator,
+  async (req, res, next) => {
+    const { body: bicycle } = req;
+    try {
+      await bicycleService.createBicycle({ bicycle, files: req.files });
+      req.flash('success', 'Bicicleta creada exitosamente.');
+      res.redirect('back');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.get('/:code/update', authHandler, async (req, res, next) => {
+  const { code } = req.params;
   try {
-    await bicycleService.createBicycle({ bicycle, files: req.files });
-    req.flash('success', 'Bicicleta creada exitosamente.');
-    res.redirect('back');
+    const bicycle = await bicycleService.getBicycle({ where: { code } });
+    res.render('dashboard/bicycle/update', {
+      title: 'Actualizar bicicleta',
+      bicycle,
+    });
   } catch (error) {
     next(error);
   }
 });
+
+router.post(
+  '/update',
+  authHandler,
+  updateBicycleValidator,
+  async (req, res, next) => {
+    const { body: bicycle } = req;
+    try {
+      await bicycleService.updateBicycle({ bicycle, files: req.files });
+      req.flash('success', 'La bicicleta fue actualizada exitosamente.');
+      res.redirect('/dashboard/bicycles');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export default router;

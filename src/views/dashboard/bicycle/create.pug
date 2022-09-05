@@ -2,7 +2,6 @@ extends ../../layouts/layout
 block content
   - const errors = messages.errors || null
   - const values = messages.values || null
-
   .card-body
     h1.text-center Nueva Bicicleta
     form(action='/dashboard/bicycles/create', method='post', enctype="multipart/form-data")

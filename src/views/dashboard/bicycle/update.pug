@@ -1,0 +1,35 @@
+extends ../../layouts/layout
+block content
+  - const errors = messages.errors || null
+  .card-body
+    h1.text-center Actualización de bicicleta
+    form(action=`/dashboard/bicycles/update`, method='post', enctype="multipart/form-data")
+      .mb-1
+        label.form-label.fw-bold.fs-5(for='color') Color:
+        input#color.form-control.form-control-lg(type='text', name='color', placeholder='Ingresar color', value=bicycle.color)
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].color
+      .mb-1
+        label.form-label.fw-bold.fs-5(for='model') Modelo:
+        input#model.form-control.form-control-lg(type='text', name='model', placeholder='Ingresar modelo', value=bicycle.model)
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].model
+      .mb-1
+        label.form-label.fw-bold.fs-5(for='price') Precio:
+        input#price.form-control.form-control-lg(type='text', name='price' placeholder='Ingresar precio', value=bicycle.price)
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].price
+      .mb-3
+        label.col-form-label.fw-bold.fs-5(for='file') Imagen (JPG o PNG)
+        img.card-img-fluid.img-thumbnail.d-block.mb-1(src=`/uploads/bicycles/${bicycle.image}`, alt='...', style="height:200px;")
+        input#file.form-control.form-control-lg(type='file', name='file')
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].file
+      input(type="hidden", name="bicycleId", id="bicycleId", value=bicycle._id)
+      .d-flex
+        button.btn.btn-success.col-5(type='submit', value='OK') Actualizar
+        a.btn.btn-danger.col-5.ms-auto(href='/dashboard/bicycles', role="button") Volver

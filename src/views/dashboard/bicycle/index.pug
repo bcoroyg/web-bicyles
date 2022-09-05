@@ -1,7 +1,7 @@
 extends ../../layouts/layout
 block content
-  a.btn.btn-primary.btn-lg.mb-3(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
-  .table-responsive
+  a.btn.btn-primary.btn-lg.mt-4.mb-1(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
+  .table-responsive(style="height:520px;")
     table.table.table-striped.align-middle
       thead.table-dark
         tr
@@ -23,7 +23,7 @@ block content
               td
                 img(src=`/uploads/bicycles/${bicycle.image}`, style="height:50px;")
               td
-                a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.id}/update` role='button') Editar
+                a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.code}/update` role='button') Editar
               td
                 form.d-grid(method='post' action=`/dashboard/bicycles/${bicycle.id}/delete`)
                   input(type='hidden' name='id' value= bicycle.id)
