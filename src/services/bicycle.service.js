@@ -1,4 +1,5 @@
 import models from '../database/models/index.js';
+import uploadHandler from '../utils/uploadHandler.js';
 
 class BicycleService {
   static _bicycleServiceInstance = null;
@@ -12,12 +13,12 @@ class BicycleService {
     return BicycleService._bicycleServiceInstance;
   }
 
-  async getBicycles({where={}}) {
+  async getBicycles({ where = {} }) {
     const bicycles = await models.Bicycle.find(where);
     return bicycles;
   }
 
-  async getBicycle({where}){
+  async getBicycle({ where }) {
     const bicycle = await models.Bicycle.findOne(where);
     return bicycle;
   }
@@ -27,15 +28,28 @@ class BicycleService {
     return bicycle;
   }
 
-  async createBicycle({ bicycle }) {
-    const createdBicycle = await models.Bicycle.create(bicycle);
+  async createBicycle({ bicycle, files }) {
+    // Capturando envio de imagen
+    const image = await uploadHandler({
+      file: files.file,
+      collection: 'bicycles',
+    });
+    const data = {
+      ...bicycle,
+      image,
+    };
+    const createdBicycle = await models.Bicycle.create(data);
     return createdBicycle;
   }
 
   async updateBicycle({ bicycleId, bicycle }) {
-    const updatedBicycle = await models.Bicycle.findByIdAndUpdate(bicycleId, bicycle, {
-      new: true,
-    });
+    const updatedBicycle = await models.Bicycle.findByIdAndUpdate(
+      bicycleId,
+      bicycle,
+      {
+        new: true,
+      }
+    );
     return updatedBicycle;
   }
 

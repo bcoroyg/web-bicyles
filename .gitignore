@@ -2,3 +2,4 @@
 .husky
 .eslintcache
 node_modules/
+src/public/uploads

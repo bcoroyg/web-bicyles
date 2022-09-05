@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
 import flash from 'connect-flash';
+import fileUpload from 'express-fileupload';
 import config from './config/index.js';
 import routerAPP from './routes/index.js';
 import notFoundHandler from './utils/middlewares/notFoundHandler.js';
@@ -29,6 +30,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
+//Fileupload - Carga de archivos
+app.use(fileUpload());
 //session
 app.use(
   session({

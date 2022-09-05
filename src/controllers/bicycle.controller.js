@@ -31,7 +31,7 @@ router.get('/create', authHandler, async (req, res, next) => {
 router.post('/create', authHandler, createBicycleValidator, async (req, res, next) => {
   const { body: bicycle } = req;
   try {
-    await bicycleService.createBicycle({ bicycle });
+    await bicycleService.createBicycle({ bicycle, files: req.files });
     req.flash('success', 'Bicicleta creada exitosamente.');
     res.redirect('back');
   } catch (error) {

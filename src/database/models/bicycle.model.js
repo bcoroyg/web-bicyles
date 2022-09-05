@@ -15,6 +15,9 @@ const BicycleSchema = new Schema(
     model: {
       type: String,
     },
+    image: {
+      type: String,
+    },
     reserved: {
       type: Boolean,
       default: false,

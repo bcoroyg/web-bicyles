@@ -65,4 +65,27 @@ const tokenExpire = async (token = '') => {
   }
 };
 
-export { emailExists, tokenExists, userEmailExists, tokenExpire };
+const notIsEmptyImage = (req) => {
+  if (!req.files || Object.keys(req.files).length === 0 || !req.files?.file) {
+    throw new Error('La imagen es obligatoria');
+  };
+  return true
+}
+
+const isImageValid = (req) => {
+  if(req.files){
+    const { file } = req.files;
+    // validando tipo de archivo
+    if (file?.mimetype != "image/jpeg" && file?.mimetype != "image/png") {
+      throw new Error("La imagen debe ser formato JPG o PNG");
+    };
+    //validando el tamaño del archivo
+    if (file?.size > 500000) {
+      throw new Error("La imagen debe ser menor a 500kb");
+    };
+    return true;
+  };
+  return true;
+};
+
+export { emailExists, tokenExists, userEmailExists, tokenExpire, notIsEmptyImage, isImageValid };

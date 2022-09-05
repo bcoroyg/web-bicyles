@@ -2,12 +2,13 @@ extends ../../layouts/layout
 block content
   a.btn.btn-primary.mb-3(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
   .table-responsive
-    table.table.table-striped
+    table.table.table-striped.align-middle
       thead.table-dark
         tr
           th(scope='col') Código
           th(scope='col') Color
           th(scope='col') Modelo
+          th(scope='col') Imagen
           th(scope='col')
           th(scope='col')
       tbody
@@ -18,6 +19,8 @@ block content
               td= bicycle.color
               td= bicycle.model
               td
+                img(src=`/uploads/bicycles/${bicycle.image}`, style="height:50px;")
+              td
                 a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.id}/update` role='button') Editar
               td
                 form.d-grid(method='post' action=`/dashboard/bicycles/${bicycle.id}/delete`)
@@ -26,4 +29,4 @@ block content
                     = 'Eliminar'
         else
           tr
-            th.text-center(colspan="5")='No hay bicicletas'
+            th.text-center(colspan="6")='No hay bicicletas'
