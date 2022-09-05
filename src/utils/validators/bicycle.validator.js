@@ -6,9 +6,11 @@ const createBicycleValidator = [
   //Sanitizar
   body('color').escape(),
   body('model').escape(),
+  body('price').escape(),
   //validar
   check('color', 'El color es obligatorio.').notEmpty(),
   check('model', 'El modelo es obligatorio.').notEmpty(),
+  check('price', 'El precio es obligatorio.').notEmpty(),
   check('file').custom((f, { req }) => notIsEmptyImage(req)),
   check('file').custom((f, { req }) => isImageValid(req)),
   validatorHandler

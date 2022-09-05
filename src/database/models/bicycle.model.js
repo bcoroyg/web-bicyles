@@ -15,6 +15,9 @@ const BicycleSchema = new Schema(
     model: {
       type: String,
     },
+    price: {
+      type: Number,
+    },
     image: {
       type: String,
     },

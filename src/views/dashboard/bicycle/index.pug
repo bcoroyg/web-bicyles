@@ -1,6 +1,6 @@
 extends ../../layouts/layout
 block content
-  a.btn.btn-primary.mb-3(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
+  a.btn.btn-primary.btn-lg.mb-3(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
   .table-responsive
     table.table.table-striped.align-middle
       thead.table-dark
@@ -8,6 +8,7 @@ block content
           th(scope='col') Código
           th(scope='col') Color
           th(scope='col') Modelo
+          th(scope='col') Precio
           th(scope='col') Imagen
           th(scope='col')
           th(scope='col')
@@ -18,6 +19,7 @@ block content
               td(scope='row')= bicycle.code
               td= bicycle.color
               td= bicycle.model
+              td= `Q. ${bicycle.price.toFixed(2)}`
               td
                 img(src=`/uploads/bicycles/${bicycle.image}`, style="height:50px;")
               td
