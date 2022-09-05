@@ -21,9 +21,9 @@ html(lang='es')
           else
             include ../partials/navbar-no-authenticated
 
-    main(class=((path !== '/') ? 'pt-5':''))
+    main(class=((path !== '/') ? 'pt-5 container':''))
       if locals.user.name && (locals.path !== '/')
-        div(style='height: 50px;').mb-4
+        div.mt-3(style='height: 50px;')
           if messages.success
             .alert.alert-success.alert-dismissible.fade.show.text-center(role='alert')
               strong=messages.success

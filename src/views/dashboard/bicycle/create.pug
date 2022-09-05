@@ -1,0 +1,23 @@
+extends ../../layouts/layout
+block content
+  - const errors = messages.errors || null
+  - const values = messages.values || null
+
+  .card-body
+    h1.text-center Nueva Bicicleta
+    form(action='/dashboard/bicycles/create', method='post')
+      .mb-1
+        label.form-label(for='color') Color:
+        input#color.form-control(type='text', name='color', placeholder='Ingresar color', value= ((values) ? `${values[0].color}` : ''))
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].color
+      .mb-1
+        label.form-label(for='model') Modelo:
+        input#model.form-control(type='text', name='model', placeholder='Ingresar modelo', value= ((values) ? `${values[0].model}` : ''))
+        p.form-text.mb-0.text-danger.text-center(style='height:10px;')
+          if errors
+              = errors[0].model
+      .d-flex.mt-5
+        button.btn.btn-primary.col-5(type='submit', value='OK') Crear
+        a.btn.btn-danger.col-5.ms-auto(href='/dashboard/bicycles', role="button") Volver

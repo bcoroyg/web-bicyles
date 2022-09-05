@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import shortid from 'shortid';
+
 const { Schema, model } = mongoose;
 
 const BicycleSchema = new Schema(
@@ -17,18 +19,17 @@ const BicycleSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    location: {
-      type: [Number],
-      index: {
-          type: '2dsphere ',
-          sparse: true ,
-      },
-  },
   },
   {
     timestamps: true,
   }
 );
+
+BicycleSchema.pre('save', function (next) {
+  //Crear el código
+  this.code = shortid.generate(),
+  next();
+});
 
 const Bicycle = model('bicycle', BicycleSchema);
 
