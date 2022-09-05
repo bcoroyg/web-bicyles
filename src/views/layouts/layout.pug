@@ -16,6 +16,17 @@ html(lang='es')
         button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
           span.navbar-toggler-icon
         #navbarSupportedContent.collapse.navbar-collapse
-          include ../partials/navbar-no-authenticated
-    block content
+          if user.role === 'Admin'
+            include ../partials/navbar-dashboard
+          else
+            include ../partials/navbar-no-authenticated
+
+    main(class=((path !== '/') ? 'pt-5':''))
+      if locals.user.name && (locals.path !== '/')
+        div(style='height: 50px;').mb-4
+          if messages.success
+            .alert.alert-success.alert-dismissible.fade.show.text-center(role='alert')
+              strong=messages.success
+              button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
+      block content
     include ../partials/scripts

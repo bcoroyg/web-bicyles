@@ -17,6 +17,13 @@ const BicycleSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    location: {
+      type: [Number],
+      index: {
+          type: '2dsphere ',
+          sparse: true ,
+      },
+  },
   },
   {
     timestamps: true,

@@ -1,0 +1,32 @@
+extends ../../layouts/layout
+block content
+  main.container
+    a.btn.btn-primary.mb-3(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
+    .table-responsive
+      table.table.table-striped
+        thead.table-dark
+          tr
+            th(scope='col') Código
+            th(scope='col') Color
+            th(scope='col') Modelo
+            th(scope='col') Ubicación
+            th(scope='col')
+            th(scope='col')
+        tbody
+          if bicycles.length > 0
+            each bicycle in bicycles
+              tr
+                td(scope='row')= bicycle.code
+                td= bicycle.color
+                td= bicycle.model
+                td= bicycle.location
+                td
+                  a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.id}/update` role='button') Editar
+                td
+                  form.d-grid(method='post' action=`/dashboard/bicycles/${bicycle.id}/delete`)
+                    input(type='hidden' name='id' value= bicycle.id)
+                    button(type='submit' class='btn btn-danger')
+                      = 'Eliminar'
+          else
+            tr
+              th.text-center(colspan="6")='No hay bicicletas'
