@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import AuthService from '../services/auth.service.js';
+import authHandler from '../utils/middlewares/authHandler.js';
 import {
   confirmAccountAuthValidator,
   createUserValidator,
@@ -131,6 +132,24 @@ router.post(
       //Redirigir
       req.flash('success', 'Su contraseña fue restablecida exitosamente.');
       res.redirect('/login');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.get(
+  '/logout',
+  authHandler,
+  async (req, res, next) => {
+    try {
+      req.logout((err) => {
+        if (err) {
+            return console.log(err)
+        }
+        req.flash('success', 'Cerraste sesión correctamente.');
+        return res.redirect('/login');
+      });
     } catch (error) {
       next(error);
     }
