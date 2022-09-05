@@ -9,6 +9,7 @@ import routerAPP from './routes/index.js';
 import notFoundHandler from './utils/middlewares/notFoundHandler.js';
 import { errorHandler, logErrors } from './utils/middlewares/errorHandler.js';
 import connectionDB from './lib/mongoose.js';
+import passport from './utils/auth/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -39,13 +40,18 @@ app.use(
 );
 //flash messages
 app.use(flash());
+//Inicializar passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   res.locals.year = new Date().getFullYear();
   //path
   res.locals.path = req.path;
-  //mesages
+  //messages
   res.locals.messages = req.flash();
+  //User
+  res.locals.user = req.user || {};
   next();
 });
 

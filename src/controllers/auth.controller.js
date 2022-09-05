@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 import AuthService from '../services/auth.service.js';
 import {
   confirmAccountAuthValidator,
@@ -21,6 +22,22 @@ router.get('/login', async (req, res, next) => {
     next(error);
   }
 });
+
+router.post(
+  '/login',
+  passport.authenticate('local', {
+    failureRedirect: '/login',
+    failureFlash: true,
+    badRequestMessage: 'Ambos campos son obligatorios.',
+  }),
+  (req, res) => {
+    if (req.user.role === 'Admin') {
+      res.redirect('/dashboard/bicycles');
+    } else {
+      res.redirect('/bicycles');
+    }
+  }
+);
 
 router.get('/create-account', async (req, res, next) => {
   try {
