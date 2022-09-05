@@ -1,3 +1,5 @@
+
+
 /* eslint-disable */
 window.addEventListener('DOMContentLoaded', (event) => {
   // Navbar shrink function
