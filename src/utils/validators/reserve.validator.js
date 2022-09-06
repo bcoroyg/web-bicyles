@@ -1,6 +1,6 @@
 import { check, body } from 'express-validator';
 import validatorHandler from '../middlewares/validatorHandler.js';
-import { bicycleIdExists, userIdExists } from '../validatorsCustomHandler.js';
+import { bicycleIdExists, reserveIdExists, userIdExists } from '../validatorsCustomHandler.js';
 
 const createReserveValidator = [
   //Sanitizar
@@ -18,6 +18,14 @@ const getUpdateReserveValidator = [
 ];
 
 const updateReserveValidator = [
+    //Sanitizar
+    body('from').escape(),
+    body('to').escape(),
+    //validar
+    check('reserveId').custom(reserveIdExists),
+    check('from', 'La fecha es obligatoria.').notEmpty(),
+    check('to', 'La fecha es obligatoria.').notEmpty(),
+    validatorHandler
 ];
 
 const deleteReserveValidator = [

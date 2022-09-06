@@ -1,8 +1,10 @@
 import BicycleService from '../services/bicycle.service.js';
+import ReserveService from '../services/reserve.service.js';
 import UserService from '../services/user.service.js';
 
 const userService = UserService.getInstance();
 const bicycleService = BicycleService.getInstance();
+const reserveService = ReserveService.getInstance();
 
 const emailExists = async (email = '') => {
   // Verificar si el correo existe
@@ -134,6 +136,22 @@ const userIdExists = async (req) => {
   }
 };
 
+const reserveIdExists = async (reserveId = '') => {
+  // Verificar si el id existe
+  try {
+    const reserve = await reserveService.getReserve({
+      where: { _id: reserveId },
+    });
+    if (!reserve) {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error) {
+      throw new Error(`!La reserva no existe!`);
+    }
+  }
+};
+
 export {
   emailExists,
   tokenExists,
@@ -144,4 +162,5 @@ export {
   bicycleIdExists,
   bicycleCodeExists,
   userIdExists,
+  reserveIdExists,
 };
