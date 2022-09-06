@@ -12,7 +12,7 @@ block content
           th(scope='col') Imagen
           th(scope='col')
           th(scope='col')
-      tbody
+      tbody(class="bicycle-list")
         if bicycles.length > 0
           each bicycle in bicycles
             tr
@@ -25,10 +25,7 @@ block content
               td
                 a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.code}/update` role='button') Editar
               td
-                form.d-grid(method='post' action=`/dashboard/bicycles/${bicycle.id}/delete`)
-                  input(type='hidden' name='id' value= bicycle.id)
-                  button(type='submit' class='btn btn-danger')
-                    = 'Eliminar'
+                a#delete-bicycle.btn.btn-danger.w-100(data-bicycle=`${bicycle._id}`, role="button") Eliminar
         else
           tr
             th.text-center(colspan="6")='No hay bicicletas'

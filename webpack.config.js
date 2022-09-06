@@ -3,7 +3,7 @@ import { join } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 export default {
-  entry: './src/public/js/index.js',
+  entry: './src/public/js/app.js',
   output: {
     filename: 'bundle.js',
     path: join(__dirname, './src/public/dist'),

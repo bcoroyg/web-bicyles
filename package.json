@@ -15,6 +15,7 @@
     "node": "16.x"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "connect-flash": "^0.1.1",
     "express": "^4.18.1",
@@ -29,7 +30,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "sweetalert2": "^11.4.30"
   },
   "devDependencies": {
     "@babel/core": "^7.19.0",

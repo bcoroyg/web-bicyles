@@ -66,6 +66,7 @@ class BicycleService {
 
   async deleteBicycle({ bicycleId }) {
     const deletedBicycle = await models.Bicycle.findByIdAndDelete(bicycleId);
+    deleteFile({ nameFile: deletedBicycle.image, collection: 'bicycles' });
     return deletedBicycle;
   }
 }

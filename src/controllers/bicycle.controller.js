@@ -76,4 +76,19 @@ router.post(
   }
 );
 
+router.delete(
+  '/delete/:bicycleId',
+  authHandler,
+  async (req, res, next) => {
+    const { bicycleId } = req.params;
+    try {
+      await bicycleService.deleteBicycle({ bicycleId });
+      //Para que la respuesta de axios sea enviada se debe devolver el estado 200 y el mensaje en send
+      res.status(200).send('¡Bicicleta eliminada correctamente!');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;

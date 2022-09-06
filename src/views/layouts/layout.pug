@@ -29,4 +29,6 @@ html(lang='es')
               strong=messages.success
               button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
       block content
+      if locals.user.name && locals.path !== '/'
+        script(src='/dist/bundle.js')
     include ../partials/scripts
