@@ -13,7 +13,10 @@ import notFoundHandler from './utils/middlewares/notFoundHandler.js';
 import { errorHandler, logErrors } from './utils/middlewares/errorHandler.js';
 import connectionDB from './lib/mongoose.js';
 import passport from './utils/auth/index.js';
-
+//New Relic
+if(process.env.NODE_ENV === 'production'){
+  (await import('newrelic'));
+};
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const MongoDBStore = sessionMongoDB(session);
 
