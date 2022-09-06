@@ -19,19 +19,21 @@ class AuthService {
     const data = {
       ...user,
     };
-    //Generar token de Email
-    const tokenEmail = tokenEmailHandler({});
-    //Creación de la url
-    const url = `${host}/confirm-account/${tokenEmail.token}`;
-    //Envio de correo
-    sendMail({
-      from: config.mailUser,
-      to: data.email,
-      subject: 'Activación de cuenta',
-      file: 'confirm-account',
-      url,
-    });
-    data.token = tokenEmail.token;
+    if (host) {
+      //Generar token de Email
+      const tokenEmail = tokenEmailHandler({});
+      //Creación de la url
+      const url = `${host}/confirm-account/${tokenEmail.token}`;
+      //Envio de correo
+      sendMail({
+        from: config.mailUser,
+        to: data.email,
+        subject: 'Activación de cuenta',
+        file: 'confirm-account',
+        url,
+      });
+      data.token = tokenEmail.token;
+    }
     const createdUser = await models.User.create(data);
     createdUser.password = undefined;
     return createdUser;

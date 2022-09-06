@@ -10,7 +10,12 @@ block content
       input#password.form-control(type='password', name='password', placeholder='Ingresar contraseña.')
       label(for='password') Contraseña
     button.btn.btn-primary.btn-lg.w-100(type='submit') Iniciar sesi&oacute;n
-    .pt-2
+    .d-flex.justify-content-end
+      a.lead.mx-1(href='/facebook')
+        i.fab.fa-facebook-square
+      a.lead.mx-1.text-danger(href="/google")
+        i.fab.fa-google-plus-square
+    .pt-1
       a.float-start.text-decoration-none(href='/') Volver a inicio
       a.float-end.text-decoration-none(href='/create-account') Crear cuenta
     .pt-3

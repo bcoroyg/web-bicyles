@@ -40,6 +40,30 @@ router.post(
   }
 );
 
+//Login google
+router.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: ['profile', 'email'],
+  })
+);
+
+router.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+    failureFlash: true,
+    badRequestMessage: 'Error OAuth Google.',
+  }),
+  (req, res) => {
+    if (req.user.role === 'Admin') {
+      res.redirect('/dashboard/bicycles');
+    } else {
+      res.redirect('/bicycles');
+    }
+  }
+);
+
 router.get('/create-account', async (req, res, next) => {
   try {
     res.render('auth/create-account', {
@@ -138,22 +162,18 @@ router.post(
   }
 );
 
-router.get(
-  '/logout',
-  authHandler,
-  async (req, res, next) => {
-    try {
-      req.logout((err) => {
-        if (err) {
-            return console.log(err)
-        }
-        req.flash('success', 'Cerraste sesión correctamente.');
-        return res.redirect('/login');
-      });
-    } catch (error) {
-      next(error);
-    }
+router.get('/logout', authHandler, async (req, res, next) => {
+  try {
+    req.logout((err) => {
+      if (err) {
+        return console.log(err);
+      }
+      req.flash('success', 'Cerraste sesión correctamente.');
+      return res.redirect('/login');
+    });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export default router;
