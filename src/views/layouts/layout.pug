@@ -26,7 +26,7 @@ html(lang='es')
     .vh-100(class=((path !== '/') ? 'pt-5 d-flex flex-column justify-content-between':''))
       main(class=((path !== '/') ? 'container':''))
         if locals.user.name && locals.path !== '/'
-          div.mt-3(style="heigth:50px;")
+          div.mt-3
             if messages.success
               .alert.alert-success.alert-dismissible.fade.show.text-center(role='alert')
                 strong=messages.success

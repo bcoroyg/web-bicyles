@@ -14,19 +14,19 @@ class ReserveService {
   }
 
   async getReserves({ where = {} }) {
-    const reserves = await models.Reserve.find(where);
+    const reserves = await models.Reserve.find(where).populate(
+      'user bicycle'
+    );
     return reserves;
   }
 
   async getReserveById({ reserveId }) {
-    const reserve = await models.Reserve.findById(reserveId).populate(
-      'user bicycle'
-    );
+    const reserve = await models.Reserve.findById(reserveId);
     return reserve;
   }
 
   async getReservesClient({ userId }) {
-    const reserves = await models.Reserve.find(userId).populate('bicycle');
+    const reserves = await models.Reserve.find({user: userId}).populate('bicycle');
     return reserves;
   }
 

@@ -1,0 +1,28 @@
+extends ../../layouts/layout
+block content
+  - moment.locale('es');
+  .table-responsive(style="height:520px;")
+    table.table.table-striped
+      thead.table-dark
+        tr
+          th(scope='col') Usuario
+          th(scope='col') Bicicleta
+          th(scope='col') Desde
+          th(scope='col') Hasta
+          th(scope='col')
+          th(scope='col')
+      tbody
+        if reserves.length
+          each reserve in reserves
+            tr
+              td(scope='row')= reserve.user.email
+              td= reserve.bicycle.model
+              td= moment(reserve.from).format('LL')
+              td= moment(reserve.to).format('LL')
+              td
+                a.btn.btn-success.d-block(href= `/dashboard/reserves/${reserve.id}/update` role='button') Editar
+              td
+                a#delete-reserve.btn.btn-danger.w-100(data-reserve=`${reserve._id}`, role="button") Eliminar
+        else
+          tr
+            th.text-center(colspan="6")='No hay reservas'
