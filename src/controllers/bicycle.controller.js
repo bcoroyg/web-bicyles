@@ -3,6 +3,7 @@ import BicycleService from '../services/bicycle.service.js';
 import authHandler from '../utils/middlewares/authHandler.js';
 import {
   createBicycleValidator,
+  deleteBicycleValidator,
   updateBicycleValidator,
 } from '../utils/validators/bicycle.validator.js';
 
@@ -79,6 +80,7 @@ router.post(
 router.delete(
   '/delete/:bicycleId',
   authHandler,
+  deleteBicycleValidator,
   async (req, res, next) => {
     const { bicycleId } = req.params;
     try {

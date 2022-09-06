@@ -99,7 +99,7 @@ const bicycleIdExists = async (bicycleId = '') => {
     }
   } catch (error) {
     if (error) {
-      throw new Error(`!La bicicleta que desea actualizar no existe!`);
+      throw new Error(`!La bicicleta no existe!`);
     }
   }
 };

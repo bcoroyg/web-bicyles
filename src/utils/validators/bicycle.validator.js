@@ -31,7 +31,14 @@ const updateBicycleValidator = [
   validatorHandler
 ];
 
+const deleteBicycleValidator = [
+  check('bicycleId').custom(bicycleIdExists),
+  validatorHandler,
+];
+
+
 export {
   createBicycleValidator,
-  updateBicycleValidator
+  updateBicycleValidator,
+  deleteBicycleValidator
 }
