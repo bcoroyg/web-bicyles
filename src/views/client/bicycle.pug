@@ -1,7 +1,7 @@
 extends ../layouts/layout
 block content
-  a.btn.btn-primary.btn-lg.text-uppercase(href=`/reserves/${locals.user._id}`) Mis reservas
-  h2.display-4.my-3.text-center Bicicletas
+  a.btn.btn-primary.btn-lg.text-uppercase.mt-4(href=`/reserves/${locals.user._id}`) Mis reservas
+  h2.display-4.mb-3.mt-2.text-center Bicicletas
   .row.row-cols-1.row-cols-md-2.row-cols-lg-3
     each bicycle in bicycles
       .col.mb-4
@@ -22,17 +22,16 @@ block content
                     h5#exampleModalLabel.modal-title Reservar
                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                   .modal-body
-                    form(method='post' action=`/reserves/${bicycle._id}/create`)
-                      input(type='hidden' name='userId' value= locals.user._id)
+                    form(method='post', action=`/reserves/${bicycle._id}/create`)
                       .mb-3
                         label.col-form-label(for='from') Desde:
-                        input.form-control(type='date' name='from' required)
+                        input.form-control(type='date' name='from', required)
                       .mb-3
                         label.col-form-label(for='to') Hasta:
-                        input.form-control(type='date' name='to' required)
+                        input.form-control(type='date' name='to', required)
                       .modal-footer
                         button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cerrar
-                        button.btn.btn-primary(type='submit') Guardar
+                        button.btn.btn-primary(type='submit') Reservar
           else
             p.text-center No disponible
   include ../partials/footer

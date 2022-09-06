@@ -118,6 +118,22 @@ const bicycleCodeExists = async (code = '') => {
   }
 };
 
+const userIdExists = async (req) => {
+  // Verificar si el correo existe
+  try {
+    const user = await userService.getUserById({
+      userId: req.user._id,
+    });
+    if (!user) {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error) {
+      throw new Error(`No existe el usuario.`);
+    }
+  }
+};
+
 export {
   emailExists,
   tokenExists,
@@ -127,4 +143,5 @@ export {
   isImageValid,
   bicycleIdExists,
   bicycleCodeExists,
+  userIdExists,
 };
