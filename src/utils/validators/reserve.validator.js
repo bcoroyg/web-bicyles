@@ -15,6 +15,8 @@ const createReserveValidator = [
 ];
 
 const getUpdateReserveValidator = [
+  check('reserveId').custom(reserveIdExists),
+  validatorHandler
 ];
 
 const updateReserveValidator = [
@@ -29,8 +31,8 @@ const updateReserveValidator = [
 ];
 
 const deleteReserveValidator = [
-  check('bicycleId').custom(bicycleIdExists),
-  validatorHandler,
+  check('reserveId').custom(reserveIdExists),
+  validatorHandler
 ];
 
 

@@ -69,6 +69,9 @@ class ReserveService {
 
   async deleteReserve({ reserveId }) {
     const deletedReserve = await models.Reserve.findByIdAndDelete(reserveId);
+    const bicycleDB = await models.Bicycle.findById(deletedReserve.bicycle);
+    bicycleDB.reserved = false;
+    await bicycleDB.save();
     return deletedReserve;
   }
 }

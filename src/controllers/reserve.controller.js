@@ -4,7 +4,7 @@ import ReserveService from '../services/reserve.service.js';
 import authHandler from '../utils/middlewares/authHandler.js';
 import verifyRoleHandler from '../utils/middlewares/verifyRoleHandler.js';
 import roleHandler from '../utils/roleHandler.js';
-import { updateReserveValidator } from '../utils/validators/reserve.validator.js';
+import { deleteReserveValidator, getUpdateReserveValidator, updateReserveValidator } from '../utils/validators/reserve.validator.js';
 
 const router = Router();
 const reserveService = ReserveService.getInstance();
@@ -31,6 +31,7 @@ router.get(
   '/:reserveId/update',
   authHandler,
   verifyRoleHandler([roleHandler.Admin]),
+  getUpdateReserveValidator,
   async (req, res, next) => {
     const { reserveId } = req.params;
     try {
@@ -63,6 +64,24 @@ router.post(
     }
   }
 );
+
+router.delete(
+  '/delete/:reserveId',
+  authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
+  deleteReserveValidator,
+  async (req, res, next) => {
+    const { reserveId } = req.params;
+    try {
+      await reserveService.deleteReserve({ reserveId });
+      //Para que la respuesta de axios sea enviada se debe devolver el estado 200 y el mensaje en send
+      res.status(200).send('Reserva eliminada correctamente!');
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 
 
 export default router;
