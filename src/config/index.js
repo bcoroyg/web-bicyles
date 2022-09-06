@@ -19,6 +19,8 @@ const config = {
   mailPort: process.env.MAIL_PORT,
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  facebookId: process.env.FACEBOOK_ID,
+  facebookSecret: process.env.FACEBOOK_SECRET,
 };
 
 export default config;

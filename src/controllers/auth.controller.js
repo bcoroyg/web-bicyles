@@ -64,6 +64,31 @@ router.get(
   }
 );
 
+//Login facebook
+router.get(
+  '/facebook',
+  passport.authenticate('facebook', {
+    scope: ['email'],
+  })
+);
+
+router.get(
+  '/facebook/callback',
+  passport.authenticate('facebook', {
+    failureRedirect: '/login',
+    failureFlash: true,
+    badRequestMessage: 'Error OAuth Facebook.',
+  }),
+  (req, res) => {
+    if (req.user.role === 'Admin') {
+      res.redirect('/dashboard/bicycles');
+    } else {
+      res.redirect('/bicycles');
+    }
+  }
+);
+
+
 router.get('/create-account', async (req, res, next) => {
   try {
     res.render('auth/create-account', {
