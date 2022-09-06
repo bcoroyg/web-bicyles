@@ -25,8 +25,8 @@ class ReserveService {
     return reserve;
   }
 
-  async getReservesClient({ where = {} }) {
-    const reserves = await models.Reserve.find(where).populate('user');
+  async getReservesClient({ userId }) {
+    const reserves = await models.Reserve.find(userId).populate('bicycle');
     return reserves;
   }
 

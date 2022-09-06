@@ -8,6 +8,25 @@ import { createReserveValidator } from '../../utils/validators/reserve.validator
 const router = Router();
 const reserveService = ReserveService.getInstance();
 
+router.get(
+  '/',
+  authHandler,
+  verifyRoleHandler([roleHandler.Customer]),
+  async (req, res, next) => {
+    try {
+      const reserves = await reserveService.getReservesClient({
+        userId: req.user._id,
+      });
+      res.render('client/reserve', {
+        title: 'Mis reservas',
+        reserves,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.post(
   '/:bicycleId/create',
   authHandler,
@@ -18,7 +37,7 @@ router.post(
     try {
       await reserveService.createReserve({
         reserve,
-        userId: req.user._id
+        userId: req.user._id,
       });
       req.flash('success', 'La reserva fue realizada exitosamente.');
       res.redirect('/bicycles');

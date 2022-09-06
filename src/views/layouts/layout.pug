@@ -23,14 +23,16 @@ html(lang='es')
           else
             include ../partials/navbar-no-authenticated
 
-    main(class=((path !== '/') ? 'container':''))
-      if locals.user.name && locals.path !== '/'
-        div.mt-5.pt-3.mb-1(style='height: 50px;')
-          if messages.success
-            .alert.alert-success.alert-dismissible.fade.show.text-center(role='alert')
-              strong=messages.success
-              button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
-      block content
+    .vh-100(class=((path !== '/') ? 'pt-5 d-flex flex-column justify-content-between':''))
+      main(class=((path !== '/') ? 'container':''))
+        if locals.user.name && locals.path !== '/'
+          div.mt-3(style="heigth:50px;")
+            if messages.success
+              .alert.alert-success.alert-dismissible.fade.show.text-center(role='alert')
+                strong=messages.success
+                button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
+        block content
       if locals.user.name && locals.path !== '/'
         script(src='/dist/bundle.js')
+      include ../partials/footer
     include ../partials/scripts

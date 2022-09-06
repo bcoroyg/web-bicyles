@@ -1,6 +1,8 @@
 ul.navbar-nav
   li.nav-item
     a.nav-link(href='/bicycles', class=(locals.path==='/bicycles'?'active':'')) Bicicletas
+  li.nav-item
+    a.nav-link(href=`/reserves`, class=(locals.path==='/reserves'?'active':'')) Mis reservas
 .m-auto
   h6.text-white.mb-0= locals.user.name
 a.btn.btn-outline-danger.my-2.my-sm-0(href='/logout', role='button') Cerrar Sesión
