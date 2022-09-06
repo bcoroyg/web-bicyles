@@ -1,40 +1,54 @@
 import { Router } from 'express';
 import BicycleService from '../services/bicycle.service.js';
 import authHandler from '../utils/middlewares/authHandler.js';
+import verifyRoleHandler from '../utils/middlewares/verifyRoleHandler.js';
+import roleHandler from '../utils/roleHandler.js';
 import {
   createBicycleValidator,
   deleteBicycleValidator,
+  getUpdateBicycleValidator,
   updateBicycleValidator,
 } from '../utils/validators/bicycle.validator.js';
 
 const router = Router();
 const bicycleService = BicycleService.getInstance();
 
-router.get('/', authHandler, async (req, res, next) => {
-  try {
-    const bicycles = await bicycleService.getBicycles({});
-    res.render('dashboard/bicycle/index', {
-      title: 'Bicicletas',
-      bicycles,
-    });
-  } catch (error) {
-    next(error);
+router.get(
+  '/',
+  authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
+  async (req, res, next) => {
+    try {
+      const bicycles = await bicycleService.getBicycles({});
+      res.render('dashboard/bicycle/index', {
+        title: 'Bicicletas',
+        bicycles,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
-router.get('/create', authHandler, async (req, res, next) => {
-  try {
-    res.render('dashboard/bicycle/create', {
-      title: 'Nueva bicicleta',
-    });
-  } catch (error) {
-    next(error);
+router.get(
+  '/create',
+  authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
+  async (req, res, next) => {
+    try {
+      res.render('dashboard/bicycle/create', {
+        title: 'Nueva bicicleta',
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.post(
   '/create',
   authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
   createBicycleValidator,
   async (req, res, next) => {
     const { body: bicycle } = req;
@@ -48,22 +62,29 @@ router.post(
   }
 );
 
-router.get('/:code/update', authHandler, async (req, res, next) => {
-  const { code } = req.params;
-  try {
-    const bicycle = await bicycleService.getBicycle({ where: { code } });
-    res.render('dashboard/bicycle/update', {
-      title: 'Actualizar bicicleta',
-      bicycle,
-    });
-  } catch (error) {
-    next(error);
+router.get(
+  '/:code/update',
+  authHandler,
+  getUpdateBicycleValidator,
+  verifyRoleHandler([roleHandler.Admin]),
+  async (req, res, next) => {
+    const { code } = req.params;
+    try {
+      const bicycle = await bicycleService.getBicycle({ where: { code } });
+      res.render('dashboard/bicycle/update', {
+        title: 'Actualizar bicicleta',
+        bicycle,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 router.post(
   '/update',
   authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
   updateBicycleValidator,
   async (req, res, next) => {
     const { body: bicycle } = req;
@@ -80,6 +101,7 @@ router.post(
 router.delete(
   '/delete/:bicycleId',
   authHandler,
+  verifyRoleHandler([roleHandler.Admin]),
   deleteBicycleValidator,
   async (req, res, next) => {
     const { bicycleId } = req.params;

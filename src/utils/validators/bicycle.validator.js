@@ -1,6 +1,6 @@
 import { check, body } from 'express-validator';
 import validatorHandler from '../middlewares/validatorHandler.js';
-import { bicycleIdExists, isImageValid, notIsEmptyImage } from '../validatorsCustomHandler.js';
+import { bicycleCodeExists, bicycleIdExists, isImageValid, notIsEmptyImage } from '../validatorsCustomHandler.js';
 
 const createBicycleValidator = [
   //Sanitizar
@@ -13,6 +13,12 @@ const createBicycleValidator = [
   check('price', 'El precio es obligatorio.').notEmpty(),
   check('file').custom((f, { req }) => notIsEmptyImage(req)),
   check('file').custom((f, { req }) => isImageValid(req)),
+  validatorHandler
+];
+
+const getUpdateBicycleValidator = [
+  //validar
+  check('code').custom(bicycleCodeExists),
   validatorHandler
 ];
 
@@ -39,6 +45,7 @@ const deleteBicycleValidator = [
 
 export {
   createBicycleValidator,
+  getUpdateBicycleValidator,
   updateBicycleValidator,
   deleteBicycleValidator
 }

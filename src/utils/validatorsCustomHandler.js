@@ -104,6 +104,20 @@ const bicycleIdExists = async (bicycleId = '') => {
   }
 };
 
+const bicycleCodeExists = async (code = '') => {
+  // Verificar si el id existe
+  try {
+    const bicycle = await bicycleService.getBicycle({ where: { code } });
+    if (!bicycle) {
+      throw new Error();
+    }
+  } catch (error) {
+    if (error) {
+      throw new Error(`!La bicicleta no existe!`);
+    }
+  }
+};
+
 export {
   emailExists,
   tokenExists,
@@ -112,4 +126,5 @@ export {
   notIsEmptyImage,
   isImageValid,
   bicycleIdExists,
+  bicycleCodeExists,
 };
