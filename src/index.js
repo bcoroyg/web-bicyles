@@ -5,6 +5,8 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import flash from 'connect-flash';
 import fileUpload from 'express-fileupload';
+import sessionMongoDB from 'connect-mongodb-session';
+import assert from 'assert';
 import config from './config/index.js';
 import routerAPP from './routes/index.js';
 import notFoundHandler from './utils/middlewares/notFoundHandler.js';
@@ -13,6 +15,7 @@ import connectionDB from './lib/mongoose.js';
 import passport from './utils/auth/index.js';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const MongoDBStore = sessionMongoDB(session);
 
 const app = express();
 
@@ -32,13 +35,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 //Fileupload - Carga de archivos
 app.use(fileUpload());
-//session
+//Session
+let store;
+if (config.dev) {
+  store = new session.MemoryStore();
+} else {
+  const DB_USER = encodeURIComponent(config.dbUser);
+  const DB_PASSWORD = encodeURIComponent(config.dbPassword);
+  store = new MongoDBStore({
+    uri: `mongodb+srv://${DB_USER}:${DB_PASSWORD}@${config.dbHost}/${config.dbName}?retryWrites=true&w=majority`,
+    collection: 'sessions',
+  });
+  store.on('error', function (error) {
+    console.log(error);
+    assert.ifError(error);
+    assert.ok(false);
+  });
+}
+
 app.use(
   session({
     secret: config.secretSession,
     key: config.keySession,
     resave: false,
     saveUninitialized: false,
+    store,
   })
 );
 //flash messages
@@ -66,7 +87,6 @@ app.use(notFoundHandler);
 //Middlewares de Errores
 app.use(logErrors);
 app.use(errorHandler);
-
 
 //Server
 app.listen(app.get('port'), async () => {
