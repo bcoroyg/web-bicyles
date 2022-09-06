@@ -18,6 +18,8 @@ html(lang='es')
         #navbarSupportedContent.collapse.navbar-collapse
           if user.role === 'Admin'
             include ../partials/navbar-dashboard
+          else if user.role === 'Customer'
+            include ../partials/navbar-authenticated
           else
             include ../partials/navbar-no-authenticated
 
