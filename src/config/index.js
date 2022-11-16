@@ -17,6 +17,7 @@ const config = {
   mailPassword: process.env.MAIL_PASSWORD,
   mailHost: process.env.MAIL_HOST,
   mailPort: process.env.MAIL_PORT,
+  sendgridApiSecret: process.env.SENDGRID_API_SECRET,
   googleClientId: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   facebookId: process.env.FACEBOOK_ID,

@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import sgTransport from 'nodemailer-sendgrid-transport';
 import pug from 'pug';
 import juice from 'juice';
 import { convert } from 'html-to-text';
@@ -18,7 +19,7 @@ if (config.dev) {
     },
   };
 } else {
-  mailConfig = {
+  /* mailConfig = {
     host: config.mailHost,
     port: Number(config.mailPort),
     secure: true,
@@ -26,7 +27,13 @@ if (config.dev) {
       user: config.mailUser,
       pass: config.mailPassword,
     },
+  }; */
+  const options = {
+    auth: {
+      api_key: config.sendgridApiSecret,
+    },
   };
+  mailConfig = sgTransport(options);
 }
 
 const generateHTML = (file, options = {}) => {
@@ -36,7 +43,6 @@ const generateHTML = (file, options = {}) => {
   );
   return juice(html);
 };
-
 
 const sendMail = async (options) => {
   const transporter = nodemailer.createTransport(mailConfig);
