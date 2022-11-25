@@ -6,29 +6,29 @@ block content
     h1.text-center Nueva Bicicleta
     form(action='/dashboard/bicycles/create', method='post', enctype="multipart/form-data")
       .mb-1
-        label.form-label.fw-bold.fs-5(for='color') Color:
+        label.fw-bold.fs-5(for='color') Color:
         input#color.form-control.form-control-lg(type='text', name='color', placeholder='Ingresar color', value= ((values) ? `${values[0].color}` : ''))
         p.form-text.mb-0.text-danger.text-center(style='height:10px;')
           if errors
               = errors[0].color
       .mb-1
-        label.form-label.fw-bold.fs-5(for='model') Modelo:
+        label.fw-bold.fs-5(for='model') Modelo:
         input#model.form-control.form-control-lg(type='text', name='model', placeholder='Ingresar modelo', value= ((values) ? `${values[0].model}` : ''))
         p.form-text.mb-0.text-danger.text-center(style='height:10px;')
           if errors
               = errors[0].model
       .mb-1
-        label.form-label.fw-bold.fs-5(for='price') Precio:
+        label.fw-bold.fs-5(for='price') Precio:
         input#price.form-control.form-control-lg(type='text', name='price', placeholder='Ingresar precio', value= ((values) ? `${values[0].model}` : ''))
         p.form-text.mb-0.text-danger.text-center(style='height:10px;')
           if errors
               = errors[0].price
       .mb-4
-        label.form-label.fw-bold.fs-5(for='file') Imagen (JPG o PNG)
+        label.fw-bold.fs-5(for='file') Imagen (JPG o PNG)
         input#file.form-control.form-control-lg(type='file', name='file')
         p.form-text.mb-0.text-danger.text-center(style='height:10px;')
           if errors
               = errors[0].file
-      .d-flex
-        button.btn.btn-primary.btn-lg.col-5(type='submit', value='OK') Crear
-        a.btn.btn-danger.btn-lg.col-5.ms-auto(href='/dashboard/bicycles', role="button") Volver
+      .d-flex.flex-column.flex-md-row.justify-content-md-between
+        button.btn.btn-primary.btn-lg.col-md-5.rounded-0.mb-1.mb-md-0(type='submit', value='OK') Crear
+        a.btn.btn-danger.btn-lg.col-md-5.rounded-0(href='/dashboard/bicycles', role="button") Volver

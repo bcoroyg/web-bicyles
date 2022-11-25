@@ -1,6 +1,6 @@
 extends ../../layouts/layout
 block content
-  a.btn.btn-primary.btn-lg.mb-1(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
+  a.btn.btn-primary.btn-lg.rounded-0.mb-1(href='/dashboard/bicycles/create' role='button') Nueva Bicicleta
   .table-responsive(style="height:520px;")
     table.table.table-striped.align-middle
       thead.table-dark
@@ -10,7 +10,6 @@ block content
           th(scope='col') Modelo
           th(scope='col') Precio
           th(scope='col') Imagen
-          th(scope='col')
           th(scope='col')
       tbody(class="bicycle-list")
         if bicycles.length > 0
@@ -22,10 +21,9 @@ block content
               td= `Q. ${bicycle.price.toFixed(2)}`
               td
                 img(src=`/uploads/bicycles/${bicycle.image}`, style="height:50px;")
-              td
-                a.btn.btn-success.d-block(href= `/dashboard/bicycles/${bicycle.code}/update` role='button') Editar
-              td
-                a#delete-bicycle.btn.btn-danger.w-100(data-bicycle=`${bicycle._id}`, role="button") Eliminar
+              td.d-flex.justify-content-md-between
+                a.btn.btn-success.col-md-5.rounded-0(href= `/dashboard/bicycles/${bicycle.code}/update` role='button') Editar
+                a#delete-bicycle.btn.btn-danger.col-md-5.rounded-0(data-bicycle=`${bicycle._id}`, role="button") Eliminar
         else
           tr
             th.text-center(colspan="7")='No hay bicicletas'

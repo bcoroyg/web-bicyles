@@ -15,6 +15,6 @@ block content
         p.form-text.mb-0.text-danger.text-center(style='height:10px;')
           if errors
               = errors[0].to
-      .d-flex
-        button.btn.btn-success.col-5(type='submit', value='Actualizar') Actualizar
-        a.btn.btn-danger.col-5.ms-auto(href='/dashboard/reserves', role="button") Volver
+      .d-flex.flex-column.flex-md-row.justify-content-between
+        button.btn.btn-success.btn-lg.col-md-5.rounded-0.mb-1.mb-md-0(type='submit', value='Actualizar') Actualizar
+        a.btn.btn-danger.btn-lg.col-md-5.rounded-0(href='/dashboard/reserves', role="button") Volver

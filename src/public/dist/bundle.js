@@ -6,10 +6,9 @@
  * or disable the default devtool with "devtool: false".
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
-/* eslint-disable */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
-
+/*eslint-disable*/
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!

@@ -10,7 +10,6 @@ block content
           th(scope='col') Desde
           th(scope='col') Hasta
           th(scope='col')
-          th(scope='col')
       tbody(class="reserve-list")
         if reserves.length
           each reserve in reserves
@@ -19,10 +18,9 @@ block content
               td= reserve.bicycle.model
               td= moment(reserve.from).format('LL')
               td= moment(reserve.to).format('LL')
-              td
-                a.btn.btn-success.d-block(href= `/dashboard/reserves/${reserve.id}/update` role='button') Editar
-              td
-                a#delete-reserve.btn.btn-danger.w-100(data-reserve=`${reserve._id}`, role="button") Eliminar
+              td.d-flex.flex-column.flex-lg-row.justify-content-lg-between
+                a.btn.btn-success.d-block.col-lg-5(href= `/dashboard/reserves/${reserve.id}/update` role='button') Editar
+                a#delete-reserve.btn.btn-danger.col-lg-5(data-reserve=`${reserve._id}`, role="button") Eliminar
         else
           tr
             th.text-center(colspan="6")='No hay reservas'
