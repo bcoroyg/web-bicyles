@@ -3,3 +3,4 @@
 .eslintcache
 node_modules/
 src/public/dist
+.vercel
