@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import passport from 'passport';
-import AuthService from '../services/auth.service.js';
-import authHandler from '../utils/middlewares/authHandler.js';
+import { AuthService } from '../../services/index.js';
+import { authHandler } from '../../utils/middlewares/index.js';
 import {
   confirmAccountAuthValidator,
   createUserValidator,
   forgotPasswordAuthValidator,
   getResetPasswordAuthValidator,
   resetPasswordAuthValidator,
-} from '../utils/validators/auth.validator.js';
+} from '../../utils/validators/auth.validator.js';
 
 const router = Router();
 const authService = AuthService.getInstance();
@@ -87,7 +87,6 @@ router.get(
     }
   }
 );
-
 
 router.get('/create-account', async (req, res, next) => {
   try {

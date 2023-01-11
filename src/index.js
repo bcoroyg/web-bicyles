@@ -1,4 +1,10 @@
-import logger from 'morgan';
+import { Server } from './classes/index.js';
+
+const server = new Server();
+
+export default server.app;
+
+/* import logger from 'morgan';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -96,3 +102,4 @@ app.listen(app.get('port'), async () => {
   console.log(`Server started on port`);
   await connectionDB();
 });
+ */

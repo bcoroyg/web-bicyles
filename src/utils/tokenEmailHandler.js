@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-const tokenEmailHandler = ({ expireToken }) => {
+export const tokenEmailHandler = ({ expireToken }) => {
   const token = {
     token: crypto.randomBytes(16).toString('hex'),
   };
@@ -9,5 +9,3 @@ const tokenEmailHandler = ({ expireToken }) => {
   }
   return token;
 };
-
-export default tokenEmailHandler;

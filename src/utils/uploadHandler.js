@@ -4,7 +4,7 @@ import path from 'path';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-const uploadHandler = ({ file, collection }) => {
+export const uploadHandler = ({ file, collection }) => {
   return new Promise((resolve, reject) => {
     // Cambiar nombre al archivo del 1000 a 9999
     const name = Math.floor(Math.random() * (9999 - 1000) + 1000);
@@ -14,19 +14,19 @@ const uploadHandler = ({ file, collection }) => {
     // Crear la nueva carpeta con el nombre de la URL si aun no existe
     if (!fs.existsSync(`./src/public/uploads/${collection}`)) {
       fs.mkdirSync(`./src/public/uploads/${collection}`);
-    };
+    }
     // ########## PATH ########
     const path = `./src/public/uploads/${collection}`;
 
-    const nameFile = `${name}.${ext}`
+    const nameFile = `${name}.${ext}`;
     // Moviendo archivo a la carpeta img
     file.mv(`${path}/${nameFile}`, (error) => {
       if (error) {
-        reject(new Error(error))
-      };
-      resolve(nameFile)
+        reject(new Error(error));
+      }
+      resolve(nameFile);
     });
-  })
+  });
 };
 export const deleteFile = ({ nameFile, collection }) => {
   const pathUrl = path.join(
@@ -44,5 +44,3 @@ export const deleteFile = ({ nameFile, collection }) => {
     });
   }
 };
-
-export default uploadHandler;

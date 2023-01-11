@@ -1,7 +1,7 @@
 import moment from 'moment';
 import models from '../database/models/index.js';
 
-class ReserveService {
+export class ReserveService {
   static _reserveServiceInstance = null;
 
   constructor() {}
@@ -75,5 +75,3 @@ class ReserveService {
     return deletedReserve;
   }
 }
-
-export default ReserveService;

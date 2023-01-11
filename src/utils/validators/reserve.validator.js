@@ -1,6 +1,10 @@
 import { check, body } from 'express-validator';
-import validatorHandler from '../middlewares/validatorHandler.js';
-import { bicycleIdExists, reserveIdExists, userIdExists } from '../validatorsCustomHandler.js';
+import { validatorHandler } from '../middlewares/index.js';
+import {
+  bicycleIdExists,
+  reserveIdExists,
+  userIdExists,
+} from '../validatorsCustomHandler.js';
 
 const createReserveValidator = [
   //Sanitizar
@@ -11,34 +15,33 @@ const createReserveValidator = [
   check('bicycleId').custom(bicycleIdExists),
   check('from', 'La fecha es obligatoria.').notEmpty(),
   check('to', 'La fecha es obligatoria.').notEmpty(),
-  validatorHandler
+  validatorHandler,
 ];
 
 const getUpdateReserveValidator = [
   check('reserveId').custom(reserveIdExists),
-  validatorHandler
+  validatorHandler,
 ];
 
 const updateReserveValidator = [
-    //Sanitizar
-    body('from').escape(),
-    body('to').escape(),
-    //validar
-    check('reserveId').custom(reserveIdExists),
-    check('from', 'La fecha es obligatoria.').notEmpty(),
-    check('to', 'La fecha es obligatoria.').notEmpty(),
-    validatorHandler
+  //Sanitizar
+  body('from').escape(),
+  body('to').escape(),
+  //validar
+  check('reserveId').custom(reserveIdExists),
+  check('from', 'La fecha es obligatoria.').notEmpty(),
+  check('to', 'La fecha es obligatoria.').notEmpty(),
+  validatorHandler,
 ];
 
 const deleteReserveValidator = [
   check('reserveId').custom(reserveIdExists),
-  validatorHandler
+  validatorHandler,
 ];
-
 
 export {
   createReserveValidator,
   getUpdateReserveValidator,
   updateReserveValidator,
-  deleteReserveValidator
-}
+  deleteReserveValidator,
+};

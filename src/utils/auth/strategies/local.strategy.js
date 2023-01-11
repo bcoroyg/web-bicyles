@@ -1,9 +1,9 @@
 import { Strategy } from 'passport-local';
-import UserService from '../../../services/user.service.js';
+import { UserService } from '../../../services/index.js';
 
 const userService = UserService.getInstance();
 
-const LocalStrategy = new Strategy(
+export const LocalStrategy = new Strategy(
   {
     usernameField: 'email',
     passwordField: 'password',
@@ -40,5 +40,3 @@ const LocalStrategy = new Strategy(
     }
   }
 );
-
-export default LocalStrategy;

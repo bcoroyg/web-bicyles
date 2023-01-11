@@ -1,6 +1,6 @@
 import models from '../database/models/index.js';
 
-class UserService {
+export class UserService {
   static _userServiceInstance = null;
 
   constructor() {}
@@ -24,5 +24,3 @@ class UserService {
     return user;
   }
 }
-
-export default UserService;

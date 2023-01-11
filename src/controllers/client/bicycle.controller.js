@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import BicycleService from '../../services/bicycle.service.js';
-import authHandler from '../../utils/middlewares/authHandler.js';
-import verifyRoleHandler from '../../utils/middlewares/verifyRoleHandler.js';
-import roleHandler from '../../utils/roleHandler.js';
+import { BicycleService } from '../../services/index.js';
+import {
+  authHandler,
+  verifyRoleHandler,
+} from '../../utils/middlewares/index.js';
+
+import { roleHandler } from '../../utils/index.js';
 
 const router = Router();
 const bicycleService = BicycleService.getInstance();

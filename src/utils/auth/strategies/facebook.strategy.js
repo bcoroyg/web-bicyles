@@ -2,13 +2,12 @@ import { Strategy } from 'passport-facebook';
 import shortid from 'shortid';
 import bcrypt from 'bcrypt';
 import config from '../../../config/index.js';
-import UserService from '../../../services/user.service.js';
-import AuthService from '../../../services/auth.service.js';
+import { UserService, AuthService } from '../../../services/index.js';
 
 const userService = UserService.getInstance();
 const authService = AuthService.getInstance();
 
-const FacebookStrategy = new Strategy(
+export const FacebookStrategy = new Strategy(
   {
     clientID: config.facebookId,
     clientSecret: config.facebookSecret,
@@ -40,5 +39,3 @@ const FacebookStrategy = new Strategy(
     }
   }
 );
-
-export default FacebookStrategy;

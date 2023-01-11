@@ -1,18 +1,24 @@
 import { Router } from 'express';
-import homeController from './../controllers/home.controller.js';
-import authController from './../controllers/auth.controller.js';
-import bicycleControllerClient from './../controllers/client/bicycle.controller.js';
-import reserveControllerClient from '../controllers/client/reserve.controller.js';
-import bicycleController from './../controllers/bicycle.controller.js';
-import reserveController from '../controllers/reserve.controller.js';
+import {
+  authControllerClient,
+  bicycleControllerClient,
+  homeControllerClient,
+  reserveControllerClient,
+} from '../controllers/client/index.js';
+import {
+  bicycleController,
+  reserveController,
+} from '../controllers/dashboard/index.js';
 
 const routerAPP = (app) => {
   const router = Router();
   app.use('/', router);
-  router.use('/', homeController);
-  router.use('/', authController);
+  //client
+  router.use('/', homeControllerClient);
+  router.use('/', authControllerClient);
   router.use('/bicycles', bicycleControllerClient);
-  router.use('/reserves', reserveControllerClient)
+  router.use('/reserves', reserveControllerClient);
+  //dashboard
   router.use('/dashboard/bicycles', bicycleController);
   router.use('/dashboard/reserves', reserveController);
 };

@@ -1,9 +1,6 @@
-const notFoundHandler = (req, res) => {
-  res.status(404);
-  res.render('error', {
+export const notFoundHandler = (req, res) => {
+  res.status(404).render('error', {
     title: `Error ${res.statusCode}`,
-    error: '¡No encontrado!'
+    error: '¡No encontrado!',
   });
 };
-
-export default notFoundHandler;

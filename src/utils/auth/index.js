@@ -1,9 +1,12 @@
 import passport from 'passport';
-import LocalStrategy from './strategies/local.strategy.js';
-import GoogleStrategy from './strategies/google.strategy.js';
-import FacebookStrategy from './strategies/facebook.strategy.js';
+import {
+  LocalStrategy,
+  GoogleStrategy,
+  FacebookStrategy,
+} from './strategies/index.js';
 
-import UserService from '../../services/user.service.js';
+import { UserService } from '../../services/index.js';
+
 const userService = UserService.getInstance();
 
 //LocalStrategy - Login con credenciales propios (usuario y password)

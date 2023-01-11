@@ -1,5 +1,5 @@
 import { check, body } from 'express-validator';
-import validatorHandler from '../middlewares/validatorHandler.js';
+import { validatorHandler } from '../middlewares/index.js';
 import {
   emailExists,
   tokenExists,

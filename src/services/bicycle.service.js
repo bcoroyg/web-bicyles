@@ -1,8 +1,8 @@
 import shortid from 'shortid';
 import models from '../database/models/index.js';
-import uploadHandler, { deleteFile } from '../utils/uploadHandler.js';
+import { deleteFile, uploadHandler } from '../utils/index.js';
 
-class BicycleService {
+export class BicycleService {
   static _bicycleServiceInstance = null;
 
   constructor() {}
@@ -70,5 +70,3 @@ class BicycleService {
     return deletedBicycle;
   }
 }
-
-export default BicycleService;

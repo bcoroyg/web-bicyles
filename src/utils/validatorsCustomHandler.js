@@ -1,6 +1,8 @@
-import BicycleService from '../services/bicycle.service.js';
-import ReserveService from '../services/reserve.service.js';
-import UserService from '../services/user.service.js';
+import {
+  BicycleService,
+  ReserveService,
+  UserService,
+} from '../services/index.js';
 
 const userService = UserService.getInstance();
 const bicycleService = BicycleService.getInstance();

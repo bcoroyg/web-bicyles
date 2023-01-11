@@ -1,10 +1,16 @@
 import { Router } from 'express';
 import moment from 'moment';
-import ReserveService from '../services/reserve.service.js';
-import authHandler from '../utils/middlewares/authHandler.js';
-import verifyRoleHandler from '../utils/middlewares/verifyRoleHandler.js';
-import roleHandler from '../utils/roleHandler.js';
-import { deleteReserveValidator, getUpdateReserveValidator, updateReserveValidator } from '../utils/validators/reserve.validator.js';
+import { ReserveService } from '../../services/index.js';
+import {
+  authHandler,
+  verifyRoleHandler,
+} from '../../utils/middlewares/index.js';
+import { roleHandler } from '../../utils/index.js';
+import {
+  deleteReserveValidator,
+  getUpdateReserveValidator,
+  updateReserveValidator,
+} from '../../utils/validators/reserve.validator.js';
 
 const router = Router();
 const reserveService = ReserveService.getInstance();
@@ -54,10 +60,10 @@ router.post(
   updateReserveValidator,
   async (req, res, next) => {
     const { reserveId } = req.params;
-    const { body: reserve} = req;
+    const { body: reserve } = req;
     try {
       await reserveService.updateReserve({ reserveId, reserve });
-      req.flash('success', 'Reserva actualizada exitosamente.')
+      req.flash('success', 'Reserva actualizada exitosamente.');
       res.redirect('/dashboard/reserves');
     } catch (error) {
       next(error);
@@ -81,7 +87,5 @@ router.delete(
     }
   }
 );
-
-
 
 export default router;

@@ -1,9 +1,9 @@
 import config from '../config/index.js';
 import models from '../database/models/index.js';
 import sendMail from '../utils/email/nodemailer.js';
-import tokenEmailHandler from '../utils/tokenEmailHandler.js';
+import { tokenEmailHandler } from '../utils/index.js';
 
-class AuthService {
+export class AuthService {
   static _authServiceInstance = null;
 
   constructor() {}
@@ -79,5 +79,3 @@ class AuthService {
     return user._id;
   }
 }
-
-export default AuthService;

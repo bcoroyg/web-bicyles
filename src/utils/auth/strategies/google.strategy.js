@@ -2,13 +2,13 @@ import { Strategy } from 'passport-google-oauth20';
 import shortid from 'shortid';
 import bcrypt from 'bcrypt';
 import config from '../../../config/index.js';
-import UserService from '../../../services/user.service.js';
-import AuthService from '../../../services/auth.service.js';
+import { UserService, AuthService } from '../../../services/index.js';
+
 
 const userService = UserService.getInstance();
 const authService = AuthService.getInstance();
 
-const GoogleStrategy = new Strategy(
+export const GoogleStrategy = new Strategy(
   {
     clientID: config.googleClientId,
     clientSecret: config.googleClientSecret,
@@ -40,5 +40,3 @@ const GoogleStrategy = new Strategy(
     }
   }
 );
-
-export default GoogleStrategy;

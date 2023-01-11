@@ -1,8 +1,11 @@
 import { Router } from 'express';
-import ReserveService from '../../services/reserve.service.js';
-import authHandler from '../../utils/middlewares/authHandler.js';
-import verifyRoleHandler from '../../utils/middlewares/verifyRoleHandler.js';
-import roleHandler from '../../utils/roleHandler.js';
+import { ReserveService } from '../../services/index.js';
+import {
+  authHandler,
+  verifyRoleHandler,
+} from '../../utils/middlewares/index.js';
+
+import { roleHandler } from '../../utils/index.js';
 import { createReserveValidator } from '../../utils/validators/reserve.validator.js';
 
 const router = Router();

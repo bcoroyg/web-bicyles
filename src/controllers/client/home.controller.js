@@ -1,5 +1,5 @@
-import { Router } from "express";
-import BicycleService from "../services/bicycle.service.js";
+import { Router } from 'express';
+import { BicycleService } from '../../services/index.js';
 
 const router = Router();
 const bicycleService = BicycleService.getInstance();
@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
     });
     res.render('index', {
       title: 'Web Bicicletas',
-      bicycles
+      bicycles,
     });
   } catch (error) {
     next(error);

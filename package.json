@@ -5,11 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "DEBUG=app:* && nodemon src/index",
-    "start": "NODE_ENV=production && node src/index",
+    "dev": "DEBUG=app:* && nodemon src/index.js",
+    "start:prod": "NODE_ENV=production && node src/index.js",
     "watch": "webpack -w --mode development",
-    "develop": "concurrently \"yarn dev\" \"yarn watch\"",
-    "prepare": "husky install"
+    "start:dev": "concurrently \"yarn dev\" \"yarn watch\""
   },
   "engines": {
     "node": "16.x"
@@ -48,14 +47,9 @@
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "husky": ">=7",
-    "lint-staged": ">=10",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
   }
 }
